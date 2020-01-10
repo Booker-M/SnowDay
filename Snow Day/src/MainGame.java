@@ -65,7 +65,8 @@ public class MainGame extends JPanel {
 			}
 		}
 		
-		newGame();
+		Boarder.newGame();
+		runGame();
 	}
 	
 	static boolean isPlaying() {
