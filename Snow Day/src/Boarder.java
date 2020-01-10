@@ -32,18 +32,6 @@ public class Boarder extends GameComponent {
 		slowmo = 1;
 		crash = false;
 	}
-	
-	public static void newGame() {
-	    xpos = MainGame.screensize.width/2;
-        ypos = 0;
-        xvel = 0;
-        yvel = 0;
-        spin = 0;
-        direction = 0;
-        landed = false;
-        slowmo = 1;
-        crash = false;
-	}
 
 	public static void move() {
 		if (onGround()) {
@@ -113,20 +101,22 @@ public class Boarder extends GameComponent {
 
 	public static void fall() {
 		int dir;
-		if (Controller.a == true && !crash) {
-			spin+= 0.5;
-		}
-		if (Controller.d == true && !crash) {
-			spin-=0.5;
+		if (Math.abs(spin) < 20) {
+		    if (Controller.a == true && !crash) {
+	            spin+= 1;
+	        }
+	        if (Controller.d == true && !crash) {
+	            spin-= 1;
+	        }
 		}
 		if (ypos < Slope.yValues(xpos) + 500 && Math.abs(spin) > 2 && yvel < 0) {
 			if (ypos > Slope.yValues(xpos) + 50) {
 				if (slowmo == 1) {
-					slowmo = (int) (Math.abs(spin)/2 + 15);
+//					slowmo = (int) (Math.abs(spin)/2 + 15);
 					spin = spin/slowmo;
 				}
 				else {
-					slowmo = (int) (Math.abs(spin)/2 + 15);
+//					slowmo = (int) (Math.abs(spin)/2 + 15);
 				}
 			}
 		}
