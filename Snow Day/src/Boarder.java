@@ -32,6 +32,18 @@ public class Boarder extends GameComponent {
 		slowmo = 1;
 		crash = false;
 	}
+	
+	public static void newGame() {
+	    xpos = MainGame.screensize.width/2;
+        ypos = 0;
+        xvel = 0;
+        yvel = 0;
+        spin = 0;
+        direction = 0;
+        landed = false;
+        slowmo = 1;
+        crash = false;
+	}
 
 	public static void move() {
 		if (onGround()) {
