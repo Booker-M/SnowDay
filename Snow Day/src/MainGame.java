@@ -8,15 +8,22 @@ import javax.swing.OverlayLayout;
 public class MainGame extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	static JFrame window = new JFrame("Snow Day");
+	private static Controller controller = new Controller();
+	private static Graphics g;
+	private static JPanel panel = new JPanel();
+	public static JLabel text = new JLabel();
+	private static JPanel textPanel = new JPanel();
+	public static double gravity = -1;
+	public static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 	private static Slope slope;
 	private static Boarder boarder;
 	private static Snow snow;
-	private static Controller controller;
-	private static Graphics g;
-	private static JPanel panel;
-	private static JLabel text;
-	public static double gravity = -1;
-    public static Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+    static FrontTrees frontTrees;
+    static BackTrees backTrees;
+    static Mountains mountains;
+    static Clouds clouds;
+    static Powder powder;
     static boolean playing = false;
     static int highscore = 0;
 	
@@ -65,7 +72,7 @@ public class MainGame extends JPanel {
 			}
 		}
 		
-		Boarder.newGame();
+		reset();
 		runGame();
 	}
 	
@@ -74,37 +81,20 @@ public class MainGame extends JPanel {
 	}
 
 	public static void newGame() {
-		JFrame window = new JFrame("Snow Day");
         window.setSize(screensize.width, screensize.height);
         window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         window.setResizable(true);
-        
-		controller = new Controller();
 		
-		panel = new JPanel();
 		panel.setLayout(new OverlayLayout(panel));
 		panel.setLocation(screensize.width/2, screensize.height/2);
 		panel.setVisible(true);
-			
-		slope = new Slope(g);
-		slope.setVisible(true);
 		
-		FrontTrees frontTrees = new FrontTrees(g);
-		BackTrees backTrees = new BackTrees(g);
-		Mountains mountains = new Mountains(g);
-		Clouds clouds = new Clouds(g);
-		Powder powder = new Powder(g);
-		snow = new Snow(g);
+        text.setVisible(true);
+        
+        textPanel.setBackground(new Color(172,216,230));
+        textPanel.add(text);
 		
-		boarder = new Boarder(g);
-		boarder.setVisible(true);
-		
-		text = new JLabel();
-		text.setVisible(true);
-		
-		JPanel textPanel = new JPanel();
-		textPanel.setBackground(new Color(172,216,230));
-		textPanel.add(text);
+		reset();
 		
 		panel.add(snow);
 		panel.add(frontTrees);
@@ -121,6 +111,21 @@ public class MainGame extends JPanel {
         window.setVisible(true);
         
         runGame();
+	}
+	
+	public static void reset() {
+	    slope = new Slope(g);
+        slope.setVisible(true);
+        
+        frontTrees = new FrontTrees(g);
+        backTrees = new BackTrees(g);
+        mountains = new Mountains(g);
+        clouds = new Clouds(g);
+        powder = new Powder(g);
+        snow = new Snow(g);
+        
+        boarder = new Boarder(g);
+        boarder.setVisible(true);
 	}
 	
 }
